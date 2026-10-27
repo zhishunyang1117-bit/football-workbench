@@ -1,0 +1,31 @@
+# 代码变更的持续集成：Python 3.13（部署目标）+ 3.14（Streamlit Cloud 曾被强制切到 3.14，提前兜底）
+name: ci
+
+on:
+  push:
+    paths-ignore: ["data/**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.13", "3.14"]
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: requirements*.txt
+      - run: pip install -r requirements-dev.txt
+      - name: 单元测试 + 应用冒烟测试
+        run: pytest -q

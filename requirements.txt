@@ -1,0 +1,14 @@
+# 应用 + 数据管道共用依赖（版本锁定为 2026-09-26 在 Python 3.14 上实测通过的组合；3.13 亦有 wheel）
+# 升级流程：改版本 → 本地 pytest + 跑一次 --mode full → 提交；CI 在 3.13/3.14 双版本验证
+streamlit==1.64.0          # Apache-2.0
+pandas==3.0.6              # BSD-3-Clause
+numpy==2.5.3               # BSD-3-Clause（需 Python ≥3.12）
+scipy==1.18.1              # BSD-3-Clause（需 Python ≥3.12）
+pyarrow==25.0.1            # Apache-2.0（streamlit 排除了 25.0.0）
+requests==2.34.2           # Apache-2.0
+tenacity==9.1.4            # Apache-2.0
+PyYAML==6.0.3              # MIT
+plotly==7.1.0              # MIT
+matplotlib==3.11.2         # PSF-based
+mplsoccer==1.8.1           # MIT  球场绘图 / 披萨图
+penaltyblog==1.12.2        # MIT  Dixon-Coles / Elo / 隐含概率 / xT / RPS

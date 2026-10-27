@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.streamlit/secrets.toml
+.env
+data/manifest.tmp
+*.parquet.tmp
+logs/
+tools/
+share_url.txt

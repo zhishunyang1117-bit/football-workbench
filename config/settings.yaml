@@ -1,0 +1,107 @@
+# 足球分析工作台 · 全局配置
+# 修改后无需改代码；管道（fwb.pipeline）与应用（streamlit_app.py）共用此文件。
+
+# 五大联赛。键 = football-data.co.uk 的联赛代码（本项目的规范联赛 ID）
+leagues:
+  E0:
+    name: 英超
+    name_en: Premier League
+    timezone: Europe/London       # openfootball 的开球时间为联赛当地时间
+    openfootball: en.1          # openfootball/football.json 文件名
+    fdorg: PL                   # football-data.org v4 competition code
+    statsbomb_competition_id: 2
+  SP1:
+    name: 西甲
+    name_en: La Liga
+    timezone: Europe/Madrid       # openfootball 的开球时间为联赛当地时间
+    openfootball: es.1
+    fdorg: PD
+    statsbomb_competition_id: 11
+  D1:
+    name: 德甲
+    name_en: Bundesliga
+    timezone: Europe/Berlin       # openfootball 的开球时间为联赛当地时间
+    openfootball: de.1
+    fdorg: BL1
+    statsbomb_competition_id: 9
+  I1:
+    name: 意甲
+    name_en: Serie A
+    timezone: Europe/Rome       # openfootball 的开球时间为联赛当地时间
+    openfootball: it.1
+    fdorg: SA
+    statsbomb_competition_id: 12
+  F1:
+    name: 法甲
+    name_en: Ligue 1
+    timezone: Europe/Paris       # openfootball 的开球时间为联赛当地时间
+    openfootball: fr.1
+    fdorg: FL1
+    statsbomb_competition_id: 7
+
+# 赛季代码采用 football-data.co.uk 的四位格式：2627 = 2026/27
+seasons:
+  # auto = 按日期自动滚动（7 月 1 日起为新赛季），无需每年手改；也可写死如 "2627"
+  current: auto
+  # 全量模式（--mode full）回填的历史赛季；Dixon-Coles 训练与回测依赖这些数据
+  # auto = 当季之前的 3 个赛季；也可写成列表如 ["2324", "2425", "2526"]
+  history: auto
+
+update:
+  # 增量模式对 football-data.org 请求的回看窗口（天），用于吸收数据源的事后修正
+  lookback_days: 10
+  # 赛程预测覆盖未来多少天
+  horizon_days: 14
+  # 质量门：任一分区行数较上一版本下降超过该比例即判定失败、拒绝提交
+  max_row_drop_ratio: 0.05
+
+sources:
+  football_data_uk:
+    enabled: true
+    base_url: https://www.football-data.co.uk
+    min_interval_s: 3.0         # 同一主机两次请求的最小间隔（礼貌抓取）
+  openfootball:
+    enabled: true
+    base_url: https://raw.githubusercontent.com/openfootball/football.json/master
+    min_interval_s: 0.5
+  football_data_org:
+    # auto = 仅当配置了 token 时启用（环境变量 FOOTBALL_DATA_ORG_TOKEN 或 .streamlit/secrets.toml）
+    # 免费 key 注册：https://www.football-data.org/client/register
+    enabled: auto
+    base_url: https://api.football-data.org/v4
+    # 免费层按分钟限流（约 10 次/分钟，以官网为准）。管道 8s 间隔 ≈7.5 次/分钟，
+    # 应用实时比分全站共享 60 秒缓存 ≈1 次/分钟，两者叠加仍在配额内
+    min_interval_s: 8.0
+    competitions: [PL, PD, BL1, SA, FL1]
+  statsbomb_open_data:
+    enabled: true
+    base_url: https://raw.githubusercontent.com/statsbomb/open-data/master/data
+    min_interval_s: 0.2
+    # [competition_id, season_id]：2015/16 英超/西甲/意甲/法甲为完整赛季事件数据
+    competitions:
+      - [2, 27]
+      - [11, 27]
+      - [12, 27]
+      - [7, 27]
+
+models:
+  dixon_coles:
+    xi: 0.0018                  # 时间衰减系数（按天），Dixon & Coles (1997) 推荐量级
+    train_days: 730             # 训练窗口
+    min_train_matches: 200
+  elo:
+    k: 20
+    home_field_advantage: 60
+    season_regression: 0.2      # 新赛季向 1500 回归的比例
+    promoted_default: 1420      # 首次出现的球队初始分（无降级球队可继承时使用）
+
+http:
+  # 可识别的 User-Agent；部署时把 URL 改成你自己的仓库地址
+  user_agent: "football-workbench/1.0 (+https://github.com/zhishunyang1117-bit/football-workbench; personal non-commercial analytics)"
+  timeout_s: 30
+
+app:
+  # 实时比分页的显示时区
+  display_timezone: Asia/Shanghai
+  # 实时比分刷新间隔（秒）；全站共享缓存，访客再多也只按这个频率请求一次 API
+  live_refresh_s: 60

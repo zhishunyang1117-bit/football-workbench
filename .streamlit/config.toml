@@ -1,0 +1,19 @@
+[theme]
+base = "light"
+primaryColor = "#2a78d6"
+backgroundColor = "#fcfcfb"
+secondaryBackgroundColor = "#f3f2ee"
+textColor = "#0b0b0b"
+
+[server]
+headless = true
+runOnSave = false
+
+[client]
+# 通过公网链接访问的朋友看不到"重新运行/清缓存/部署"等开发者菜单
+toolbarMode = "viewer"
+# 页面上只显示异常类型和通用提示，完整报错（可能含本机路径）只打印在你的控制台
+showErrorDetails = "type"
+
+[browser]
+gatherUsageStats = false

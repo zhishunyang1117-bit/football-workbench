@@ -1,0 +1,110 @@
+# 数据自动更新：增量（每日 + 周末加跑）+ 全量兜底（每周一）+ StatsBomb 回填（手动）
+#
+# 设计要点（依据 GitHub 官方文档，2026-09 核实）：
+# - cron 按 UTC 执行；避开整点（整点是高负载时段，排队任务可能被丢弃）；管道本身幂等，漏跑下次自动补上
+# - 公开仓库连续 60 天无活动会自动禁用定时任务：每次定时运行末尾调用官方 enable API 预防（不用空提交刷活动）
+# - 增量与全量共用并发组，保证同一时刻只有一个任务写数据
+# - 锁定 ubuntu-24.04：ubuntu-latest 将于 2026-10-19 起分批迁移到 26.04
+name: update-data
+
+on:
+  schedule:
+    - cron: "17 5 * * *"      # 每日 05:17 UTC 增量（欧洲前一晚比赛结束后）
+    - cron: "47 22 * * 0,6"   # 周六/周日 22:47 UTC 增量加跑（周末赛果当晚入库）
+    - cron: "33 3 * * 1"      # 每周一 03:33 UTC 全量兜底 + 发布数据快照
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "运行模式"
+        type: choice
+        options: [incremental, full, statsbomb]
+        default: incremental
+      leagues:
+        description: "联赛代码，逗号分隔（如 E0,SP1），留空 = 全部"
+        type: string
+        default: ""
+
+permissions:
+  contents: write   # 回写 data/
+  actions: write    # 保活：重新启用本工作流
+  issues: write     # 失败告警
+
+concurrency:
+  group: data-pipeline
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: ${{ github.event.inputs.mode == 'statsbomb' && 120 || 45 }}
+    env:
+      MODE: ${{ github.event.inputs.mode || (github.event.schedule == '33 3 * * 1' && 'full' || 'incremental') }}
+      LEAGUES: ${{ github.event.inputs.leagues }}
+      # 可选：football-data.org 免费 token（Settings → Secrets and variables → Actions → New repository secret）
+      FOOTBALL_DATA_ORG_TOKEN: ${{ secrets.FOOTBALL_DATA_ORG_TOKEN }}
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version-file: .python-version
+          cache: pip
+          cache-dependency-path: requirements*.txt
+
+      - name: 安装依赖
+        run: pip install -r requirements-dev.txt
+
+      - name: 单元测试（代码有问题时不触碰数据）
+        run: pytest -q --ignore=tests/test_app_smoke.py
+
+      - name: 运行数据管道
+        run: |
+          ARGS="--mode $MODE"
+          if [ -n "$LEAGUES" ]; then ARGS="$ARGS --leagues $LEAGUES"; fi
+          python -m fwb.pipeline $ARGS
+
+      - name: 应用冒烟测试（新数据能被页面正常渲染）
+        run: pytest -q tests/test_app_smoke.py
+
+      - name: 提交数据（仅 data/，失败的运行不会走到这一步）
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then echo "数据无变化"; exit 0; fi
+          git commit -m "data: $MODE $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep $((i * 10))
+          done
+          exit 1
+
+      - name: 发布数据快照（每周全量后，版本化、可回滚）
+        if: env.MODE == 'full'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="data-$(date -u +%G-W%V)"
+          tar -czf data-snapshot.tar.gz data
+          sha256sum data-snapshot.tar.gz > SHA256SUMS
+          gh release view "$TAG" >/dev/null 2>&1 \
+            && gh release upload "$TAG" data-snapshot.tar.gz SHA256SUMS --clobber \
+            || gh release create "$TAG" data-snapshot.tar.gz SHA256SUMS --title "数据快照 $TAG" \
+                 --notes "每周全量刷新后的完整数据快照。恢复：下载解压覆盖 data/ 后提交。"
+
+      - name: 保活（预防 60 天无活动导致定时任务被禁用）
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/update-data.yml/enable"
+
+      - name: 失败告警（同一标题的未关闭 issue 只追加评论）
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TITLE="数据管道运行失败"
+          BODY="模式：$MODE · 运行日志：${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          NUM=$(gh issue list --state open --search "$TITLE in:title" --json number -q '.[0].number')
+          if [ -n "$NUM" ]; then gh issue comment "$NUM" --body "$BODY"; else gh issue create --title "$TITLE" --body "$BODY"; fi
