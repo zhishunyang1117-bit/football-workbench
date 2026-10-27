@@ -61,8 +61,10 @@ class DixonColes:
     def fit(self, train: pd.DataFrame, ref_date) -> "DixonColes":
         dates = _to_ts(train["match_date"]).tolist()
         w = pb.models.dixon_coles_weights(dates, xi=self.xi, base_date=pd.Timestamp(ref_date))
+        # pandas 3 写时复制下 to_numpy() 是只读视图；Linux 上 penaltyblog 不再把 int64 转成 C long 的副本，
+        # 只读数组直接进 Cython 会报 buffer source array is read-only，所以显式复制
         self.model = pb.models.DixonColesGoalModel(
-            train["hg"].astype(int).to_numpy(), train["ag"].astype(int).to_numpy(),
+            train["hg"].astype(int).to_numpy(copy=True), train["ag"].astype(int).to_numpy(copy=True),
             train["home"].astype(str).to_numpy(), train["away"].astype(str).to_numpy(), weights=w,
         )
         self.model.fit()
