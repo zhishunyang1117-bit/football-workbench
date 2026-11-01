@@ -1,15 +1,15 @@
 {
  "data_version": "340f7babe566",
  "last_run": {
-  "duration_s": 26.3,
+  "duration_s": 26.1,
   "error": null,
   "fetch_errors": 0,
-  "finished_at": "2026-11-01T01:30:33+00:00",
+  "finished_at": "2026-11-01T11:50:00+00:00",
   "mode": "incremental",
   "not_modified_skips": 10,
-  "partitions_changed": 5,
-  "row_delta": -21,
-  "started_at": "2026-11-01T01:30:07+00:00",
+  "partitions_changed": 0,
+  "row_delta": 0,
+  "started_at": "2026-11-01T11:49:34+00:00",
   "status": "success",
   "warnings": []
  },
@@ -422,6 +422,19 @@
  },
  "runs": [
   {
+   "duration_s": 26.1,
+   "error": null,
+   "fetch_errors": 0,
+   "finished_at": "2026-11-01T11:50:00+00:00",
+   "mode": "incremental",
+   "not_modified_skips": 10,
+   "partitions_changed": 0,
+   "row_delta": 0,
+   "started_at": "2026-11-01T11:49:34+00:00",
+   "status": "success",
+   "warnings": []
+  },
+  {
    "duration_s": 26.3,
    "error": null,
    "fetch_errors": 0,
@@ -797,18 +810,6 @@
    "started_at": "2026-09-26T22:29:03+00:00",
    "status": "success",
    "warnings": []
-  },
-  {
-   "duration_s": 29.5,
-   "error": null,
-   "finished_at": "2026-09-26T22:28:57+00:00",
-   "mode": "incremental",
-   "not_modified_skips": 10,
-   "partitions_changed": 0,
-   "row_delta": 0,
-   "started_at": "2026-09-26T22:28:28+00:00",
-   "status": "success",
-   "warnings": []
   }
  ],
  "schema_version": 1,
@@ -836,7 +837,7 @@
     "rows": 306
    },
    "D1/2627": {
-    "checked_at": "2026-11-01T01:30:14+00:00",
+    "checked_at": "2026-11-01T11:49:41+00:00",
     "etag": "\"7734-65ec676740f89\"",
     "last_modified": "Mon, 26 Oct 2026 23:12:24 GMT",
     "max_date": "2026-10-25",
@@ -864,7 +865,7 @@
     "rows": 380
    },
    "E0/2627": {
-    "checked_at": "2026-11-01T01:30:08+00:00",
+    "checked_at": "2026-11-01T11:49:35+00:00",
     "etag": "\"99c8-65ec676670f45\"",
     "last_modified": "Mon, 26 Oct 2026 23:12:23 GMT",
     "max_date": "2026-10-25",
@@ -892,7 +893,7 @@
     "rows": 306
    },
    "F1/2627": {
-    "checked_at": "2026-11-01T01:30:20+00:00",
+    "checked_at": "2026-11-01T11:49:47+00:00",
     "etag": "\"8724-65ec67675c50d\"",
     "last_modified": "Mon, 26 Oct 2026 23:12:24 GMT",
     "max_date": "2026-10-26",
@@ -920,7 +921,7 @@
     "rows": 380
    },
    "I1/2627": {
-    "checked_at": "2026-11-01T01:30:17+00:00",
+    "checked_at": "2026-11-01T11:49:44+00:00",
     "etag": "\"a783-65f01d8565b79\"",
     "last_modified": "Thu, 29 Oct 2026 22:03:09 GMT",
     "max_date": "2026-10-29",
@@ -948,7 +949,7 @@
     "rows": 380
    },
    "SP1/2627": {
-    "checked_at": "2026-11-01T01:30:11+00:00",
+    "checked_at": "2026-11-01T11:49:38+00:00",
     "etag": "\"b958-65ec676720be3\"",
     "last_modified": "Mon, 26 Oct 2026 23:12:23 GMT",
     "max_date": "2026-10-26",
@@ -957,27 +958,27 @@
   },
   "openfootball": {
    "D1/2627": {
-    "checked_at": "2026-11-01T01:30:24+00:00",
+    "checked_at": "2026-11-01T11:49:52+00:00",
     "etag": "W/\"e3c37a48521a67a03d30cd6b11262435f51c21af7b5c3c1b440a3bf9d0cd94c1\"",
     "rows": 306
    },
    "E0/2627": {
-    "checked_at": "2026-11-01T01:30:23+00:00",
+    "checked_at": "2026-11-01T11:49:51+00:00",
     "etag": "W/\"1411049c91723e4d139a30869da97044a30226b4629384a7c8efd4e7cf5d8454\"",
     "rows": 380
    },
    "F1/2627": {
-    "checked_at": "2026-11-01T01:30:25+00:00",
+    "checked_at": "2026-11-01T11:49:53+00:00",
     "etag": "W/\"65068859b88ed59c9c752c6620347981922abc4ea6ec331f95581084458263c8\"",
     "rows": 306
    },
    "I1/2627": {
-    "checked_at": "2026-11-01T01:30:25+00:00",
+    "checked_at": "2026-11-01T11:49:52+00:00",
     "etag": "W/\"e5c3ae4bc0103a4de36ca76c2b681f3cf5fae75501fecddc288213a71ee4b262\"",
     "rows": 380
    },
    "SP1/2627": {
-    "checked_at": "2026-11-01T01:30:24+00:00",
+    "checked_at": "2026-11-01T11:49:51+00:00",
     "etag": "W/\"840ace43fd494d209a0ffebb9267d5317107cd91250ae5429976090fc083f165\"",
     "rows": 380
    }
