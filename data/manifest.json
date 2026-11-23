@@ -1,17 +1,19 @@
 {
- "data_version": "025a4fc8cc5b",
+ "data_version": "24974579a413",
  "last_run": {
-  "duration_s": 25.5,
+  "duration_s": 102.9,
   "error": null,
   "fetch_errors": 0,
-  "finished_at": "2026-11-23T03:10:27+00:00",
-  "mode": "incremental",
-  "not_modified_skips": 10,
-  "partitions_changed": 5,
-  "row_delta": -19,
-  "started_at": "2026-11-23T03:10:02+00:00",
+  "finished_at": "2026-11-23T13:36:12+00:00",
+  "mode": "full",
+  "not_modified_skips": 0,
+  "partitions_changed": 10,
+  "row_delta": 0,
+  "started_at": "2026-11-23T13:34:29+00:00",
   "status": "success",
-  "warnings": []
+  "warnings": [
+   "D1: 回测中 1 场 Dixon-Coles 预测因数值问题跳过（不影响其余样本）"
+  ]
  },
  "partitions": {
   "curated/matches/league=D1/season=2324": {
@@ -115,29 +117,29 @@
    "updated_at": "2026-11-09T12:01:55+00:00"
   },
   "derived/backtest/league=D1": {
-   "hash": "29c423dbb9ad18f2",
+   "hash": "e374469ba0a10be3",
    "rows": 693,
-   "updated_at": "2026-11-18T13:55:27+00:00"
+   "updated_at": "2026-11-23T13:35:58+00:00"
   },
   "derived/backtest/league=E0": {
-   "hash": "c02628a11620a3e9",
+   "hash": "94072719cee68d38",
    "rows": 860,
-   "updated_at": "2026-11-18T13:55:25+00:00"
+   "updated_at": "2026-11-23T13:35:42+00:00"
   },
   "derived/backtest/league=F1": {
-   "hash": "7e49527984ae1c56",
+   "hash": "5d952651fda65121",
    "rows": 702,
-   "updated_at": "2026-11-18T13:55:29+00:00"
+   "updated_at": "2026-11-23T13:36:12+00:00"
   },
   "derived/backtest/league=I1": {
-   "hash": "d54ed7938deb339b",
+   "hash": "9e79311975a928b5",
    "rows": 870,
-   "updated_at": "2026-11-18T13:55:28+00:00"
+   "updated_at": "2026-11-23T13:36:05+00:00"
   },
   "derived/backtest/league=SP1": {
-   "hash": "0e4e292ad6182916",
+   "hash": "421c97b6796e7d2c",
    "rows": 879,
-   "updated_at": "2026-11-18T13:55:26+00:00"
+   "updated_at": "2026-11-23T13:35:52+00:00"
   },
   "derived/elo_history/league=D1": {
    "hash": "85d9ac6c8340dbde",
@@ -165,29 +167,29 @@
    "updated_at": "2026-11-09T12:02:01+00:00"
   },
   "derived/predictions/league=D1": {
-   "hash": "bbfa12683afdca57",
+   "hash": "7940d7eb9bcde446",
    "rows": 18,
-   "updated_at": "2026-11-23T03:10:24+00:00"
+   "updated_at": "2026-11-23T13:35:52+00:00"
   },
   "derived/predictions/league=E0": {
-   "hash": "9c8520149b4bca86",
+   "hash": "ab3ac958d3fdb401",
    "rows": 30,
-   "updated_at": "2026-11-23T03:10:21+00:00"
+   "updated_at": "2026-11-23T13:35:34+00:00"
   },
   "derived/predictions/league=F1": {
-   "hash": "e0ead0978ec6d3b6",
+   "hash": "9f73631f655b74fc",
    "rows": 18,
-   "updated_at": "2026-11-23T03:10:26+00:00"
+   "updated_at": "2026-11-23T13:36:06+00:00"
   },
   "derived/predictions/league=I1": {
-   "hash": "cffb4e003feee189",
+   "hash": "b2c29a6c07bdf246",
    "rows": 22,
-   "updated_at": "2026-11-23T03:10:25+00:00"
+   "updated_at": "2026-11-23T13:35:58+00:00"
   },
   "derived/predictions/league=SP1": {
-   "hash": "c840c894436c5b75",
+   "hash": "1f993b008aa4ac62",
    "rows": 20,
-   "updated_at": "2026-11-23T03:10:22+00:00"
+   "updated_at": "2026-11-23T13:35:43+00:00"
   },
   "derived/sb_player_match/competition_id=11/season_id=27": {
    "hash": "9b8badb448d2c3c9",
@@ -421,6 +423,21 @@
   }
  },
  "runs": [
+  {
+   "duration_s": 102.9,
+   "error": null,
+   "fetch_errors": 0,
+   "finished_at": "2026-11-23T13:36:12+00:00",
+   "mode": "full",
+   "not_modified_skips": 0,
+   "partitions_changed": 10,
+   "row_delta": 0,
+   "started_at": "2026-11-23T13:34:29+00:00",
+   "status": "success",
+   "warnings": [
+    "D1: 回测中 1 场 Dixon-Coles 预测因数值问题跳过（不影响其余样本）"
+   ]
+  },
   {
    "duration_s": 25.5,
    "error": null,
@@ -801,161 +818,146 @@
    "started_at": "2026-11-02T13:28:20+00:00",
    "status": "success",
    "warnings": []
-  },
-  {
-   "duration_s": 101.6,
-   "error": null,
-   "fetch_errors": 0,
-   "finished_at": "2026-11-02T11:39:52+00:00",
-   "mode": "full",
-   "not_modified_skips": 0,
-   "partitions_changed": 25,
-   "row_delta": 172,
-   "started_at": "2026-11-02T11:38:11+00:00",
-   "status": "success",
-   "warnings": [
-    "D1: 回测中 1 场 Dixon-Coles 预测因数值问题跳过（不影响其余样本）"
-   ]
   }
  ],
  "schema_version": 1,
  "watermarks": {
   "football_data_uk": {
    "D1/2324": {
-    "checked_at": "2026-11-16T11:58:43+00:00",
+    "checked_at": "2026-11-23T13:34:55+00:00",
     "etag": "\"21291-618d602825ed6\"",
     "last_modified": "Sun, 19 May 2024 22:21:44 GMT",
     "max_date": "2024-05-18",
     "rows": 306
    },
    "D1/2425": {
-    "checked_at": "2026-11-16T11:58:46+00:00",
+    "checked_at": "2026-11-23T13:34:58+00:00",
     "etag": "\"262fe-63597db46eb3b\"",
     "last_modified": "Tue, 20 May 2025 21:23:15 GMT",
     "max_date": "2025-05-17",
     "rows": 306
    },
    "D1/2526": {
-    "checked_at": "2026-11-16T11:58:49+00:00",
+    "checked_at": "2026-11-23T13:35:01+00:00",
     "etag": "\"270c8-65227fda1a8f6\"",
     "last_modified": "Tue, 19 May 2026 09:06:12 GMT",
     "max_date": "2026-05-16",
     "rows": 306
    },
    "D1/2627": {
-    "checked_at": "2026-11-23T03:10:09+00:00",
+    "checked_at": "2026-11-23T13:35:04+00:00",
     "etag": "\"9876-65fd5118e87b5\"",
     "last_modified": "Mon, 09 Nov 2026 10:03:07 GMT",
     "max_date": "2026-11-08",
     "rows": 81
    },
    "E0/2324": {
-    "checked_at": "2026-11-16T11:58:19+00:00",
+    "checked_at": "2026-11-23T13:34:31+00:00",
     "etag": "\"2a0a4-618d602756e46\"",
     "last_modified": "Sun, 19 May 2024 22:21:43 GMT",
     "max_date": "2024-05-19",
     "rows": 380
    },
    "E0/2425": {
-    "checked_at": "2026-11-16T11:58:22+00:00",
+    "checked_at": "2026-11-23T13:34:34+00:00",
     "etag": "\"301f6-635fd86ddf171\"",
     "last_modified": "Sun, 25 May 2025 22:41:05 GMT",
     "max_date": "2025-05-25",
     "rows": 380
    },
    "E0/2526": {
-    "checked_at": "2026-11-16T11:58:25+00:00",
+    "checked_at": "2026-11-23T13:34:37+00:00",
     "etag": "\"31aae-652a8ffeb13c4\"",
     "last_modified": "Mon, 25 May 2026 19:01:01 GMT",
     "max_date": "2026-05-24",
     "rows": 380
    },
    "E0/2627": {
-    "checked_at": "2026-11-23T03:10:03+00:00",
+    "checked_at": "2026-11-23T13:34:40+00:00",
     "etag": "\"bf96-65fd511792abb\"",
     "last_modified": "Mon, 09 Nov 2026 10:03:06 GMT",
     "max_date": "2026-11-08",
     "rows": 100
    },
    "F1/2324": {
-    "checked_at": "2026-11-16T11:59:07+00:00",
+    "checked_at": "2026-11-23T13:35:19+00:00",
     "etag": "\"20f58-618d6028f8de6\"",
     "last_modified": "Sun, 19 May 2024 22:21:45 GMT",
     "max_date": "2024-05-19",
     "rows": 306
    },
    "F1/2425": {
-    "checked_at": "2026-11-16T11:59:10+00:00",
+    "checked_at": "2026-11-23T13:35:22+00:00",
     "etag": "\"25c4f-63597db564ce3\"",
     "last_modified": "Tue, 20 May 2025 21:23:16 GMT",
     "max_date": "2025-05-17",
     "rows": 306
    },
    "F1/2526": {
-    "checked_at": "2026-11-16T11:59:13+00:00",
+    "checked_at": "2026-11-23T13:35:25+00:00",
     "etag": "\"26b07-654d4bbb29aed\"",
     "last_modified": "Mon, 22 Jun 2026 10:01:59 GMT",
     "max_date": "2026-05-17",
     "rows": 306
    },
    "F1/2627": {
-    "checked_at": "2026-11-23T03:10:15+00:00",
+    "checked_at": "2026-11-23T13:35:28+00:00",
     "etag": "\"a828-65fd51192ae40\"",
     "last_modified": "Mon, 09 Nov 2026 10:03:07 GMT",
     "max_date": "2026-11-08",
     "rows": 90
    },
    "I1/2324": {
-    "checked_at": "2026-11-16T11:58:55+00:00",
+    "checked_at": "2026-11-23T13:35:07+00:00",
     "etag": "\"28c67-619eebaaf51cf\"",
     "last_modified": "Sun, 02 Jun 2024 21:16:25 GMT",
     "max_date": "2024-06-02",
     "rows": 380
    },
    "I1/2425": {
-    "checked_at": "2026-11-16T11:58:58+00:00",
+    "checked_at": "2026-11-23T13:35:10+00:00",
     "etag": "\"2ecea-635fd86ef183d\"",
     "last_modified": "Sun, 25 May 2025 22:41:07 GMT",
     "max_date": "2025-05-25",
     "rows": 380
    },
    "I1/2526": {
-    "checked_at": "2026-11-16T11:59:01+00:00",
+    "checked_at": "2026-11-23T13:35:13+00:00",
     "etag": "\"2fe79-652a8fffc59bd\"",
     "last_modified": "Mon, 25 May 2026 19:01:02 GMT",
     "max_date": "2026-05-24",
     "rows": 380
    },
    "I1/2627": {
-    "checked_at": "2026-11-23T03:10:12+00:00",
+    "checked_at": "2026-11-23T13:35:16+00:00",
     "etag": "\"cc32-65fd511857f1c\"",
     "last_modified": "Mon, 09 Nov 2026 10:03:06 GMT",
     "max_date": "2026-11-08",
     "rows": 110
    },
    "SP1/2324": {
-    "checked_at": "2026-11-16T11:58:31+00:00",
+    "checked_at": "2026-11-23T13:34:43+00:00",
     "etag": "\"290e4-6196c2c00bb03\"",
     "last_modified": "Mon, 27 May 2024 09:30:45 GMT",
     "max_date": "2024-05-26",
     "rows": 380
    },
    "SP1/2425": {
-    "checked_at": "2026-11-16T11:58:34+00:00",
+    "checked_at": "2026-11-23T13:34:46+00:00",
     "etag": "\"2f15f-635fd86e4f663\"",
     "last_modified": "Sun, 25 May 2025 22:41:06 GMT",
     "max_date": "2025-05-25",
     "rows": 380
    },
    "SP1/2526": {
-    "checked_at": "2026-11-16T11:58:37+00:00",
+    "checked_at": "2026-11-23T13:34:49+00:00",
     "etag": "\"30415-652a8fff88158\"",
     "last_modified": "Mon, 25 May 2026 19:01:02 GMT",
     "max_date": "2026-05-24",
     "rows": 380
    },
    "SP1/2627": {
-    "checked_at": "2026-11-23T03:10:06+00:00",
+    "checked_at": "2026-11-23T13:34:52+00:00",
     "etag": "\"de16-65fd5118a3249\"",
     "last_modified": "Mon, 09 Nov 2026 10:03:07 GMT",
     "max_date": "2026-11-08",
@@ -964,27 +966,27 @@
   },
   "openfootball": {
    "D1/2627": {
-    "checked_at": "2026-11-23T03:10:20+00:00",
+    "checked_at": "2026-11-23T13:35:32+00:00",
     "etag": "W/\"e3c37a48521a67a03d30cd6b11262435f51c21af7b5c3c1b440a3bf9d0cd94c1\"",
     "rows": 306
    },
    "E0/2627": {
-    "checked_at": "2026-11-23T03:10:19+00:00",
+    "checked_at": "2026-11-23T13:35:31+00:00",
     "etag": "W/\"1411049c91723e4d139a30869da97044a30226b4629384a7c8efd4e7cf5d8454\"",
     "rows": 380
    },
    "F1/2627": {
-    "checked_at": "2026-11-23T03:10:21+00:00",
+    "checked_at": "2026-11-23T13:35:33+00:00",
     "etag": "W/\"65068859b88ed59c9c752c6620347981922abc4ea6ec331f95581084458263c8\"",
     "rows": 306
    },
    "I1/2627": {
-    "checked_at": "2026-11-23T03:10:20+00:00",
+    "checked_at": "2026-11-23T13:35:32+00:00",
     "etag": "W/\"e5c3ae4bc0103a4de36ca76c2b681f3cf5fae75501fecddc288213a71ee4b262\"",
     "rows": 380
    },
    "SP1/2627": {
-    "checked_at": "2026-11-23T03:10:19+00:00",
+    "checked_at": "2026-11-23T13:35:31+00:00",
     "etag": "W/\"840ace43fd494d209a0ffebb9267d5317107cd91250ae5429976090fc083f165\"",
     "rows": 380
    }
